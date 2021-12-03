@@ -1,0 +1,993 @@
+<div>
+   
+    <div style="min-height:120vh;">
+
+	<div class="card shadow bg-ligth col-md-12">
+	   
+	    <div class="row mt-2">
+		<div class="col-md-3">
+		    
+		</div>
+		<div class="col-md-6 mb-4 mt-3">
+		    <h2 class="text-center text-uppercase h6 text-dark font-weight-bold">
+			
+			Centro de Atención Empresarial
+		    </h2>
+		</div>
+		<div class="col-md-3">
+		
+		    <h2 class="text-center text-uppercase h6 text-dark font-weight-bold">
+			{{$step}}
+		    </h2>
+		</div>
+
+	    </div>
+	    <div class="row align-items-center mt-3 mb-3">
+		<div class="col">
+		    <h6 class="text-center text-uppercase text-dark">
+			Formato único de solicitud de trámite de licencia de funcionamiento de bajo impacto
+		    </h6>
+		</div>
+	
+	    </div>
+	   
+	    <div class="row mt-2 mb-2 justify-content-center">
+		@if($step > 1 )
+		    <div class="col-md-2" align="center">
+			<x-jet-button wire:click="decreaseStep()" class="mt-2">
+			    {{__('Anterior')}}
+			</x-jet-button>
+		    </div>
+		@endif
+		<div class="col-md-2" align="center">
+		    @if($step < 32 && $visible == true)
+			<x-jet-button wire:click="submit()" class="mt-2">
+			    {{__('Siguiente')}}
+			</x-jet-button>
+		    @endif
+		</div>
+
+		
+		
+	    </div>
+
+	    @if($step == 0)
+		    <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="movimiento">Tipo de movimiento</label>
+		       <select wire:model="movimiento" wire:change="visibleAgain" class="form-control">
+			   <option selected>Selecciona</option>
+			   <option value="Alta de licencia">Alta de licencia</option>
+			   <option value="Baja de licencia">Baja de licencia</option>
+			   <option value="Refrendo">Refrendo</option>
+			   <option value="Cambio de propietario">Cambio de propietario</option>
+			   <option value="Cambio de domicilio">Cambio de domicilio</option>
+			   <option value="Cambio de giro">Cambio de giro</option>
+			   
+		       </select>
+		       @error('movimiento')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+		    </div>
+
+	    @endif
+
+	    @if(isset($licenses) && $visible == false)
+		<div class="row mt-2 mb-2 justify-content-center">
+		    @if(count($licenses)<1)
+			<p>No hay licencias activas</p>
+		    @else
+			<p>Selecciona la licencia que desas modificar</p>
+		    @endif
+		</div>
+		<div class="row mt-2 mb-2 justify-content-center">
+		    
+		    <div class="col-md-6 form-group">
+		    <table>
+			@foreach($licenses as $license)
+			    <tr><td>{{$license->id}}</td></tr>
+			@endforeach
+
+		    </table>
+		    
+		</div>
+	    </div>
+
+	    @endif
+
+	    
+	    
+	   @if($step>0 && $step<20 )
+	    <div class="row mt-3">
+		<div class="col">
+		    <h6 class="text-center text-uppercase text-dark">
+			Datos generales
+		    </h6>
+		</div>
+	    </div>
+	   @endif
+
+	   @if($step == 1)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="nombre">{{__('Nombre')}}</label>
+		       <input type="text" wire:model.lazy="nombre" class="form-control" placeholder="Nombre o razón social">
+		       @error('nombre')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+		   
+	       </div>
+	   @endif
+	   @if($step == 2)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="nomnegocio">{{__('Nombre o denominación del negocio')}}</label>
+		       <input type="text" wire:model.lazy="nomnegocio" class="form-control" placeholder="La casita">
+		       @error('nomnegocio')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+	   @if($step == 3)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="telefono">{{__('Teléfono')}}</label>
+		       <input type="text" wire:model.lazy="telefono" class="form-control" placeholder="55 7572 3839"></div>
+		       @error('telefono')<small class="form-text text-danger">{{ $message }} </small> @enderror
+	       </div>
+	   @endif
+	   @if($step == 4)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="email">Correo electrónico</label>
+		       <input type="email" wire:model.lazy="email" class="form-control" placeholder="correo@electronico.com">
+		       @error('email')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 5)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="calle">Calle</label>
+		       <input type="text" wire:model.lazy="calle" class="form-control" placeholder="Av. Juárez">
+		       @error('calle')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 6)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="numext">Número exterior</label>
+		       <input type="text" wire:model.lazy="numext" class="form-control" placeholder="13567">
+		       @error('numext')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 7)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="numint">Número interior</label>
+		       <input type="text" wire:model.lazy="numint" class="form-control" placeholder="B601">
+		       @error('numint')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		       <small>Si no aplica, dejar en blanco</small>
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 8)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="colonia">Colonia o población</label>
+		       <input type="text" wire:model.lazy="colonia" class="form-control" placeholder="Centro">
+		       @error('colonia')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 9)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="cp">Código Postal</label>
+		       <input type="text" wire:model.lazy="cp" class="form-control" placeholder="54402">
+		       @error('cp')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	    @if($step == 10)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="referencia">Entre calle y calle</label>
+		       <input type="text" wire:model.lazy="referencia" class="form-control" placeholder="Fco. I Madero y Morelos">
+		       @error('referencia')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+
+	    @endif
+	    
+	   @if($step == 11)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="uso">Uso</label>
+		       <select wire:model="uso" class="form-control">
+			   <option selected>Selecciona el uso</option>
+			   <option value="Bodega">Bodega</option>
+			   <option value="Oficinas">Oficinas</option>
+			   <option value="Servicio">Servicio</option>
+			   <option value="Comercio">Comercio</option>
+			   
+		       </select>
+		       @error('uso')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	      
+	   
+	   @if($step == 12)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="apertura">Fecha de apertura</label>
+		       <input wire:model.lazy="apertura" type="text" class="form-control" placeholder="13/10/2021">
+		       @error('apertura')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+
+	       </div>
+	   @endif
+	   
+	   @if($step == 13)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="anuncios">Anuncios publicitarios</label>
+		       <select wire:model="anuncios" class="form-control">
+			   
+			   <option value="1">Sí</option>
+			   <option value="0">No</option>		       
+		       </select>
+		       @error('anuncios')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 14)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="tipo">Tipo</label>
+		       <input type="text" wire:model.lazy="tipo" class="form-control" placeholder="Tipo">
+		       @error('tipo')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+
+	   @endif
+
+	   @if($step == 15)
+	       <!-- Eliminar y recorrer numeración en controlador y vistas -->
+	   @endif
+
+	   
+	   @if($step == 16)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="searchGiro">Giro a desempeñar</label>
+		       <select wire:model.debounce.300ms="searchGiro"  class="form-control">
+			<option value="">{{__('Selecciona un giro')}}</option>
+			@foreach($catgiros as $catgiro)
+			    <option value="{{$catgiro->id}}">{{$catgiro->nombre}}</option>
+			@endforeach
+		       </select>
+		       @if($giros != "")
+			   <label for="giro" class="mt-2">Especifica</label>
+			   <select wire:model="giro"  class="form-control">
+			       <option value="">{{__('Selecciona un giro')}}</option>
+			       @foreach($giros as $giro)
+				   <option value="{{$giro->id}}">{{$giro->nombre}}</option>
+			       @endforeach
+			   </select>
+		       @endif
+		      
+		     
+		       
+		      
+		       @error('giro')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		       
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 17)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="inversion">Total de la inversión</label>
+		       <input type="text" class="form-control" placeholder="250 000">
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 18)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="empleados">Número de empleados</label>
+		       <input type="text" class="form-control" placeholder="27">
+		       @error('empleados')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 19)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   
+		   <div class="col-md-6 form-group">
+		       <label for="inicio">Fecha de inicio de operaciones</label>
+		       <input type="text" wire:model="inicio" class="form-control" placeholder="10/12/2021">
+		       @error('inicio')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+		   
+	       </div>
+	   @endif
+
+	   @if($step > 19 && $step < 25  )
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   
+		   <div class="col">
+		       <h6 class="text-center text-uppercase text-dark">
+			   Datos del inmueble
+		       </h6>
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 20)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="catastral">Clave catastral</label>
+		       <input type="text" wire:model="catastral" class="form-control col-md-12" placeholder="895642221">
+		       @error('catastral')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 21)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="usoactual">Uso actual</label>
+		       <input type="text" wire:model="usoactual" class="form-control" placeholder="Bodega">
+		       @error('usoactual')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 22)
+	       <div class="row mt-2 mb-2 justify-content-center">
+	      
+		   <div class="col-md-6 form-group">
+		       <label for="superficie">Superficie ocupada por el establecimiento</label>
+		       
+		       <input type="text" wire:model="superficie" class="form-control" placeholder="346 m2">
+		       @error('superficie')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+	   @if($step == 23)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <label for="estacionamiento"> Número de cajones de estacionamiento</label>
+		       <input type="text" wire:model="estacionamiento" class="form-control" placeholder="23">
+		       @error('estacionamiento')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step == 24)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		    
+		       <p align="center"><b>Croquis de localización</b></p>
+		       
+		       
+		       <div class="group-form"> 	      
+			   <label for="latitud">
+			       Latitud:
+			   </label>
+			   <input wire:model="latitud" id="latitud" type="text" style="color:red" class="form-control" />
+		       </div>
+		       <div class="group-form"> 	      
+			   <label for="longitud">
+			       Longitud:
+			   </label>
+			   <input wire:model="longitud" id="longitud" type="text" style="color:red" class="form-control" /><br />
+		       
+		       @error('longitud')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		       @error('latitud')<small class="form-text text-danger">{{ $message }} </small> @enderror
+		       </div>
+		       <br />
+		       <br />
+		       <div id="map">
+		       <div id="map_canvas" style="width: auto; height: 500px;">
+		       </div>
+		       </div>
+    
+		   </div>
+	       </div>
+	   @endif
+
+	   @if($step > 24 && $step < 30 )
+	       <div class="row mt-2 mb-2 justify-content-center">
+	      
+		   <div class="col">
+		       <h6 class="text-center text-uppercase text-dark">
+			   Requisitos
+		       </h6>
+		   </div>
+	       </div>
+	     
+	   @endif
+
+	   @if($step == 25)
+	        <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col">
+		       <p> <b>Documento que acredite la personalidad </b>(INE, IFE vigente, Pasaporte vigente, Cédula Profesional y/o Cartilla del Servicio Militar)</p>
+		       <!-- inicio de la carga -->
+		       <div x-data="{isUploading: false, progress:5 }"
+			    x-on:livewire-upload-start="isUploading = true"
+			    x-on:livewire-upload-finish="isUploading = false; progress = 5"
+			    x-on:livewire-upload-error="isUploading = false"
+			    x-on:livewire-upload-progress="progress = $event.detail.progress"
+
+		       >
+			   <div class="row justify-content-center">
+			       <div class="form-group">
+			       @if(count($docid) == 0)
+				   <x-jet-button onclick="document.getElementById('docid2').click()" class="mt-2 mb-3 text-wrap">
+				       {{__('Seleccionar archivos frente y vuelta')}}
+				   </x-jet-button>
+			       @endif
+			       <input style="display:none" id="docid2" type="file" wire:model="docid" multiple>
+			       @error('docid')<small class="form-text text-danger">{{ $message }} </small> @enderror
+			       </div>
+			   </div>
+			   <!-- incluir condicional si la imagen ya se encuentra cargada -->
+			   @if(count($docid) > 0)
+			       <div class="row justify-content-center">
+				   <ul>
+				   @foreach($docid as $doc)
+				       
+				       <li> {{$doc->getClientOriginalName()}}</li>
+				       
+				   @endforeach
+				   </ul>
+			       </div>
+			       <div class="row justify-content-center">
+				   @if($visible == true)
+				       <x-jet-button class="mt-2" wire:click="uploadFiles('docid')">
+					   {{__('Guardar archivos')}}
+				       </x-jet-button>
+				       <x-jet-button class="mt-2 ml-2 btn-danger" wire:click="cancelUpload('docid')">
+					   {{__('Cancelar')}}
+				       </x-jet-button>
+			     
+				   @endif
+				   @if (session()->has('message'))
+
+				       <div class="alert alert-success">
+
+					   {{ session('message') }}
+
+				       </div>
+
+				   @endif
+				   
+			   </div>
+			   @endif
+
+			   
+			      <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
+				  <div class="progress-bar bg-danger " role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" :style="`width:${progress}%`"><span class="sr-only">40% complete</span></div>
+				  
+			      </div>
+			      
+			      
+		       </div>
+		       <!-- fin de la carga -->
+		   </div>
+		</div>
+		
+	   @endif
+	   
+	   
+	   @if($step == 26)
+	      
+
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col">
+		       <p> <b>Documento que acredite la propiedad o posesión del inmueble</b> (Contrato de arrendamiento, de comodato, de compra venta, cesión de derechos, testimonio notarial, título de propiedad, matriculación administrativa y sentencia judicial)</p>
+		       
+
+		       <!-- inicio de la carga -->
+		       <div x-data="{isUploading: false, progress:5 }"
+			    x-on:livewire-upload-start="isUploading = true"
+			    x-on:livewire-upload-finish="isUploading = false; progress = 5"
+			    x-on:livewire-upload-error="isUploading = false"
+			    x-on:livewire-upload-progress="progress = $event.detail.progress"
+
+		       >
+			   <div class="row justify-content-center">
+			       <div class="form-group">
+			       @if(count($docpro) == 0)
+				   <x-jet-button onclick="document.getElementById('docpro2').click()" class="mt-2 mb-3 text-wrap">
+				       {{__('Seleccionar archivos')}}
+				   </x-jet-button>
+			       @endif
+			       <input style="display:none" id="docpro2" type="file" wire:model="docpro" multiple>
+			       @error('docpro')<small class="form-text text-danger">{{ $message }} </small> @enderror
+			       </div>
+			   </div>
+			   <!-- incluir condicional si la imagen ya se encuentra cargada -->
+			   @if(count($docpro) > 0)
+			       <div class="row justify-content-center">
+				   <ul>
+				   @foreach($docpro as $docpro)
+				       
+				       <li> {{$docpro->getClientOriginalName()}}</li>
+				       
+				   @endforeach
+				   </ul>
+			       </div>
+			       <div class="row justify-content-center">
+				   @if($visible == true)
+				       <x-jet-button class="mt-2" wire:click="uploadFiles('docpro')">
+				       {{__('Guardar archivos')}}
+				   </x-jet-button>
+				   <x-jet-button class="mt-2 ml-2 btn-danger" wire:click="cancelUpload('docpro')">
+				       {{__('Cancelar')}}
+				   </x-jet-button>
+			     
+				   @endif
+				   @if (session()->has('message'))
+
+				       <div class="alert alert-success">
+
+					   {{ session('message') }}
+
+				       </div>
+
+				   @endif
+				   
+			   </div>
+			   @endif
+
+			   
+			      <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
+				  <div class="progress-bar bg-danger " role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" :style="`width:${progress}%`"><span class="sr-only">40% complete</span></div>
+				  
+			      </div>
+			      
+			      
+		       </div>
+		       <!-- fin de la carga -->
+		   </div>
+	       </div>
+
+	   @endif
+
+	   @if($step == 27)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col">
+		       <p align="center"> <b>Cédula informativa de zonificación </b></p>
+
+
+		       <!-- inicio de la carga -->
+		       <div x-data="{isUploading: false, progress:5 }"
+			    x-on:livewire-upload-start="isUploading = true"
+			    x-on:livewire-upload-finish="isUploading = false; progress = 5"
+			    x-on:livewire-upload-error="isUploading = false"
+			    x-on:livewire-upload-progress="progress = $event.detail.progress"
+
+		       >
+			   <div class="row justify-content-center">
+			       <div class="form-group">
+			       @if(count($doczon) == 0)
+				   <x-jet-button onclick="document.getElementById('doczon2').click()" class="mt-2 mb-3 text-wrap">
+				       {{__('Seleccionar archivos frente y vuelta')}}
+				   </x-jet-button>
+			       @endif
+			       <input style="display:none" id="doczon2" type="file" wire:model="doczon" multiple>
+			       @error('doczon')<small class="form-text text-danger">{{ $message }} </small> @enderror
+			       </div>
+			   </div>
+			   <!-- incluir condicional si la imagen ya se encuentra cargada -->
+			   @if(count($doczon) > 0)
+			       <div class="row justify-content-center">
+				   <ul>
+				   @foreach($doczon as $doczon)
+				       
+				       <li> {{$doczon->getClientOriginalName()}}</li>
+				       
+				   @endforeach
+				   </ul>
+			       </div>
+			       <div class="row justify-content-center">
+				   @if($visible == true)
+				       <x-jet-button class="mt-2" wire:click="uploadFiles('doczon')">
+					   {{__('Guardar archivos')}}
+				       </x-jet-button>
+				       <x-jet-button class="mt-2 ml-2 btn-danger" wire:click="cancelUpload('doczon')">
+					   {{__('Cancelar')}}
+				       </x-jet-button>
+			     
+				   @endif
+				   @if (session()->has('message'))
+
+				       <div class="alert alert-success">
+
+					   {{ session('message') }}
+
+				       </div>
+
+				   @endif
+				   
+			   </div>
+			   @endif
+
+			   
+			      <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
+				  <div class="progress-bar bg-danger " role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" :style="`width:${progress}%`"><span class="sr-only">40% complete</span></div>
+				  
+			      </div>
+			      
+			      
+		       </div>
+		       <!-- fin de la carga -->
+
+		       
+		   </div>
+	   @endif
+
+	   @if($step == 28)
+
+	       <div class="row mt-2 mb-2 justify-content-center">
+		   <div class="col-md-6 form-group">
+		       <div class="form-check form-switch">
+
+			   <label for="moral" > Persona jurídico colectiva</label>
+			   <select class="form-control" wire:model="moral">
+			       
+			       <option value="0">No</option>
+			       <option value="1">Sí</option>
+			   </select>
+			   
+			   
+		       
+		       </div>
+
+		       
+		   </div>
+	       </div>
+	     @endif
+	     
+	     @if($step == 29 && $moral == 1)
+	       <div class="row mt-2 mb-2 justify-content-center">
+		
+		   <div class="col">
+		       <p align="center"> <b>Acta constitutiva </b></p>
+		       
+		       <!-- inicio de la carga -->
+		       <div x-data="{isUploading: false, progress:5 }"
+			    x-on:livewire-upload-start="isUploading = true"
+			    x-on:livewire-upload-finish="isUploading = false; progress = 5"
+			    x-on:livewire-upload-error="isUploading = false"
+			    x-on:livewire-upload-progress="progress = $event.detail.progress"
+
+		       >
+			   <div class="row justify-content-center">
+			       <div class="form-group">
+			       @if(count($docact) == 0)
+				   <x-jet-button onclick="document.getElementById('docact2').click()" class="mt-2 mb-3 text-wrap">
+				       {{__('Seleccionar archivos frente y vuelta')}}
+				   </x-jet-button>
+			       @endif
+			       <input style="display:none" id="docact2" type="file" wire:model="docact" multiple>
+			       @error('docact')<small class="form-text text-danger">{{ $message }} </small> @enderror
+			       </div>
+			   </div>
+			   <!-- incluir condicional si la imagen ya se encuentra cargada -->
+			   @if(count($docact) > 0)
+			       <div class="row justify-content-center">
+				   <ul>
+				   @foreach($docact as $docact)
+				       
+				       <li> {{$docact->getClientOriginalName()}}</li>
+				       
+				   @endforeach
+				   </ul>
+			       </div>
+			       <div class="row justify-content-center">
+				   @if($visible == true)
+				       <x-jet-button class="mt-2" wire:click="uploadFiles('docact')">
+					   {{__('Guardar archivos')}}
+				       </x-jet-button>
+				       <x-jet-button class="mt-2 ml-2 btn-danger" wire:click="cancelUpload('docact')">
+					   {{__('Cancelar')}}
+				       </x-jet-button>
+			     
+				   @endif
+				   @if (session()->has('message'))
+
+				       <div class="alert alert-success">
+
+					   {{ session('message') }}
+
+				       </div>
+
+				   @endif
+				   
+			   </div>
+			   @endif
+
+			   
+			      <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
+				  <div class="progress-bar bg-danger " role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" :style="`width:${progress}%`"><span class="sr-only">40% complete</span></div>
+				  
+			      </div>
+			      
+			      
+		       </div>
+		       <!-- fin de la carga -->
+
+	       </div>
+	       
+	     @endif
+
+	     @if($step == 30 && $moral == 1)
+
+		 <div class="row mt-2 mb-2 justify-content-center">
+		     <div class="col-md-6 form-group">
+			 <div class="form-check form-switch">
+
+			     <label for="moral" >El poder notarial se encuentra en el Acta Constitutiva</label>
+			     <select class="form-control" wire:model="poder">
+				 
+				 <option value="0">No</option>
+				 <option value="1" selected>Sí</option>
+			     </select>
+			     
+			     
+			     
+			 </div>
+
+			 
+		     </div>
+		 </div>
+
+		 @if($poder == true)
+
+		     <div class="row mt-2 mb-2 justify-content-center">
+			 <div class="col-md-6 form-group">
+			     <label>Se encuentra en la página</label>
+			     <input type="text" class="form-control" wire:model="poderpag" >
+			 </div>
+			 
+		     </div>
+		 @else
+
+		    
+		       <!-- inicio de la carga -->
+		       <div x-data="{isUploading: false, progress:5 }"
+			    x-on:livewire-upload-start="isUploading = true"
+			    x-on:livewire-upload-finish="isUploading = false; progress = 5"
+			    x-on:livewire-upload-error="isUploading = false"
+			    x-on:livewire-upload-progress="progress = $event.detail.progress"
+
+		       >
+			   <div class="row justify-content-center">
+			       <div class="form-group">
+			       @if(count($docpod) == 0)
+				   <x-jet-button onclick="document.getElementById('docpod2').click()" class="mt-2 mb-3 text-wrap">
+				       {{__('Seleccionar archivos frente y vuelta')}}
+				   </x-jet-button>
+			       @endif
+			       <input style="display:none" id="docpod2" type="file" wire:model="docpod" multiple>
+			       @error('docpod')<small class="form-text text-danger">{{ $message }} </small> @enderror
+			       </div>
+			   </div>
+			   <!-- incluir condicional si la imagen ya se encuentra cargada -->
+			   @if(count($docpod) > 0)
+			       <div class="row justify-content-center">
+				   <ul>
+				   @foreach($docpod as $docpod)
+				       
+				       <li> {{$docpod->getClientOriginalName()}}</li>
+				       
+				   @endforeach
+				   </ul>
+			       </div>
+			       <div class="row justify-content-center">
+				   @if($visible == true)
+				       <x-jet-button class="mt-2" wire:click="uploadFiles('docpod')">
+					   {{__('Guardar archivos')}}
+				       </x-jet-button>
+				       <x-jet-button class="mt-2 ml-2 btn-danger" wire:click="cancelUpload('docpod')">
+					   {{__('Cancelar')}}
+				       </x-jet-button>
+			     
+				   @endif
+				   @if (session()->has('message'))
+
+				       <div class="alert alert-success">
+
+					   {{ session('message') }}
+
+				       </div>
+
+				   @endif
+				   
+			   </div>
+			   @endif
+
+			   
+			      <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
+				  <div class="progress-bar bg-danger " role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" :style="`width:${progress}%`"><span class="sr-only">40% complete</span></div>
+				  
+			      </div>
+			      
+			      
+		       </div>
+		       <!-- fin de la carga -->
+
+		       
+	       </div>
+		      
+
+		 @endif
+		 
+	     @endif
+	     
+
+	     @if($step == 31)
+		 <div class="row mt-2 mb-2 justify-content-center">
+		     
+		     <div class="col">
+			 <p align="center"> <b>En materia de medio ambiente Municipal </b></p>
+			 <div class="form-group">
+			 <label>Descripción breve de la actividad que realiza</label>
+			 <input type="text" class="form-control">
+			 </div>
+			 <div class="form-group">
+			     <label>Materias y/o productos principales que utiliza </label>
+			     <input type="text" class="form-control">
+			 </div>
+			 <div class="form-group">
+			     <label>Destino de los residuos sólidos no peligrosos (basura común)</label>
+			     <select class="form-control" wire:model="otro">
+				
+				 <option value="Servicios públicos">Sevicios públicos</option>
+				 <option value="Servicio particular">Sevicio particular</option>
+				 <option value="1">Otro</option>
+			     </select>
+			     @if($otro == 1)
+				 <label class="mt-2">Especifique</label>
+				 <input type="text" class="form-control">
+			     @endif
+			     
+			 </div>
+
+
+			 <div class="form-group">
+			     <label>Destino de las descargas de aguas residuales</label>
+			     <select class="form-control" wire:model="otroR">
+				
+				 <option value="Red Municipal">Red Municipal</option>
+				 <option value="Fosa séptica">Sevicio particular</option>
+				 <option value="1">Otro</option>
+			     </select>
+			     @if($otroR == 1)
+				 <label class="mt-2">Especifique</label>
+				 <input type="text" class="form-control">
+			     @endif
+			     
+			 </div>
+			 
+			 
+		     </div>
+		 </div>
+		 
+	     @endif
+
+	     
+
+	     @if($step == 31)
+		 <div class="row mt-2 mb-2 justify-content-center">
+		     
+		     <div class="col">
+			 <p align="center"> <b>Carta responsiva en material de protección civil </b></p>
+			 <p>Enterado del equipo requerido y de las medidas de seguridad que son necesarias para este tipo de inmueble y cuento con el equipo contra incendios mismo que se encuentra señalado, con recarga vigente y libre de obstáculos, señalización de rutas de evacuación, salidas de emergencia, información relativa a qué hacer en caso de sismos e incendio y botiquín de primeros auxilios.</p>
+			 <p>Le informo que el inmueble se encuentra abierto en un horario de las <input type="text" placeholder="08:00" size="5"> a las <input type="text" placeholder="23:00" size="5"> horas </br>los días <input type="text" placeholder="lunes a viernes" size="20"> pudiendo el verificador de la Coordinación de Protección Civil y Bomberos ingresar a las instalaciones para verificar que lo declarado es cierto y el estado que guardan las medidas mínimas de seguridad </p>		     
+			 <p>Si al momento de la visita, la autoridad requiere realizar algunos cambios o modificaciones, estos se realizarán dentro del plazo que señale el verificador en el Acta que levante para tal efecto.</p>
+			 <p>Si al momento de la visita no cumple con las medidas mínimas de seguridad, prevención de accidentes y acciones de protección civil, estoy en el entendido que se puede revocar el dictamen de condiciones mínimas de seguridad otorgado a mi inmueble</p>
+			 <p>En caso de alguna modificación al inmueble, cambio de giro, ampliación, consumo de gas L.P., aumento de metros cuadrados (m2), etc. donde se pudiera generar un riesgo, daré aviso de inmediato a la Coordinación de Protección Civil y Bomberos; de no hacerlo así el presente documento quedará sin efectos.</p>
+			 <p>Derivado de lo anterior, entiendo el grado de responsabilidad que esto conlleva y me hago responsable de los daños que se puedan derivar de la omisión o negligencia al no contar con las medidas mínimas de seguridad y de prevención dentro de la unidad económica así como de los daños y afectaciones a terceros; en consecuencia, deslindo de cualquier compromiso y responsabilidad a la Coordinación de Protección Civil y Bomberos, la Dirección de Desarrollo y Fomento Económico y al Ayuntamiento de Nicolás Romero, Estado de México por cualquier contingencia que pudiera ocasionarse dentro del inmueble, incluyendo publicidad interna o externa, mobiliario, lesiones o fallecimientos.</p>
+
+
+			 
+			 
+		     </div>
+		 </div>
+		 
+	     @endif
+
+	     @if($step == 32)
+		 <div class="row mt-2 mb-2 justify-content-center">
+		     
+		     <div class="col">
+			 <p align="center"> <b>Declaraciones finales del solicitante </b></p>
+
+			 <div class="row mt-2 mb-2 justify-content-center">
+			     <div class="custom-control custom-switch">
+			     <input type="checkbox" class="custom-control-input" id="customSwitch1" wire:model="acepto">
+			     <label class="custom-control-label" for="customSwitch1">Acepto</label>
+			 </div>
+			 </div>
+		     </div>
+		 </div>
+
+		 @if($acepto == 1)
+		     <div class="row mt-2 mb-2 justify-content-center">
+			 <div class="col-md-2" align="center">
+		  
+			<x-jet-button wire:click="submit()" class="mt-2">
+			    {{__('Enviar')}}
+			</x-jet-button>
+			
+			 </div>
+		     </div>
+		 @endif
+		 
+	     @endif
+	     
+
+	  
+
+	</div>
+
+	
+	
+    </div>
+	
+   
+    <script type="text/javascript" src="google_api"></script>
+    
+    <script type="text/javascript">
+     window.addEventListener('set-map', event => {
+	 initializeMap();
+     });
+     
+     function initializeMap() {
+	 
+         // Creating map object
+         var map = new google.maps.Map(document.getElementById('map_canvas'), {
+             zoom: 15,
+             center: new google.maps.LatLng(19.625326, -99.316153),
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+         });
+         // creates a draggable marker to the given coords
+         var vMarker = new google.maps.Marker({
+             position: new google.maps.LatLng(19.625326,-99.316153),
+             draggable: true
+         });
+         // adds a listener to the marker
+         // gets the coords when drag event ends
+         // then updates the input with the new coords
+         google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+             $("#latitud").val(evt.latLng.lat().toFixed(6));
+             $("#longitud").val(evt.latLng.lng().toFixed(6));
+             map.panTo(evt.latLng);
+         });
+         // centers the map on markers coords
+         map.setCenter(vMarker.position);
+         // adds the marker on the map
+         vMarker.setMap(map);
+     }
+	 
+    </script>
+
+    
+</div>
